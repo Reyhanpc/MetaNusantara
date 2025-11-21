@@ -1,0 +1,838 @@
+:root {
+    --neon-cyan: #0088ff;
+    --neon-gold: #ffd700;
+    --bg-dark: #0a0a0a;
+    --glass: rgba(255, 255, 255, 0.05);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: white;
+    font-family: 'Rajdhani', sans-serif;
+    overflow-x: hidden;
+}
+
+/* BACKGROUND PARTIKEL BERGERAK */
+.bg-particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.particle {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.3;
+    background: radial-gradient(circle, var(--neon-cyan), transparent);
+    animation: float 15s infinite ease-in-out;
+    filter: blur(1px);
+}
+
+.particle:nth-child(1) {
+    width: 300px;
+    height: 300px;
+    top: -50px;
+    left: -50px;
+    animation-delay: 0s;
+}
+
+.particle:nth-child(2) {
+    width: 200px;
+    height: 200px;
+    bottom: 10%;
+    right: 5%;
+    animation-delay: 2s;
+    background: radial-gradient(circle, var(--neon-gold), transparent);
+}
+
+.particle:nth-child(3) {
+    width: 150px;
+    height: 150px;
+    top: 20%;
+    right: 15%;
+    animation-delay: 4s;
+    background: radial-gradient(circle, var(--neon-purple), transparent);
+}
+
+.particle:nth-child(4) {
+    width: 250px;
+    height: 250px;
+    bottom: 20%;
+    left: 10%;
+    animation-delay: 6s;
+    background: radial-gradient(circle, var(--neon-cyan), transparent);
+}
+
+.particle:nth-child(5) {
+    width: 180px;
+    height: 180px;
+    top: 60%;
+    left: 20%;
+    animation-delay: 8s;
+    background: radial-gradient(circle, var(--neon-gold), transparent);
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translate(0, 0) scale(1);
+        opacity: 0.2;
+    }
+
+    25% {
+        transform: translate(30px, 60px) scale(1.1);
+        opacity: 0.4;
+    }
+
+    50% {
+        transform: translate(60px, 30px) scale(0.9);
+        opacity: 0.3;
+    }
+
+    75% {
+        transform: translate(40px, 70px) scale(1.05);
+        opacity: 0.35;
+    }
+}
+
+.hero-content {
+    display: flex;
+    flex-direction: column;
+    /* KUNCI: Menyusun elemen dari atas ke bawah */
+    align-items: center;
+    /* Memastikan semua elemen rata tengah */
+    justify-content: center;
+    width: 100%;
+}
+
+/* --- LANDING PAGE STYLES --- */
+#landing-page {
+    padding: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    transition: opacity 0.5s ease;
+}
+
+.hero-section {
+    text-align: center;
+    margin-bottom: 50px;
+    margin-top: 50px;
+}
+
+/* Glitch Text Effect */
+/* --- JUDUL UTAMA (ANIMASI MASUK + GLITCH) --- */
+h1.glitch {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 4.5rem;
+    font-weight: 900;
+    letter-spacing: 5px;
+    color: white;
+    position: relative;
+    display: inline-block;
+
+    /* Text Shadow Neon */
+    text-shadow:
+        0 0 10px rgba(0, 136, 255, 0.8),
+        0 0 20px rgba(0, 136, 255, 0.4);
+
+    /* GABUNGAN ANIMASI:
+       1. hero-reveal: Animasi muncul pertama kali (1.5 detik)
+       2. glitch-idle: Animasi glitch berulang (mulai setelah 1.5 detik)
+    */
+    animation:
+        hero-reveal 1.5s cubic-bezier(0.19, 1, 0.22, 1) forwards,
+        glitch-idle 4s infinite linear alternate-reverse 1.5s;
+    /* Delay 1.5s */
+
+    /* Mulai dari keadaan tidak terlihat (untuk animasi reveal) */
+    opacity: 0;
+    transform: scale(0.8);
+}
+
+/* Pseudo-element untuk efek warna RGB Split (Merah/Biru) */
+h1.glitch::before,
+h1.glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--bg);
+    overflow: hidden;
+    opacity: 0.7;
+}
+
+h1.glitch::before {
+    left: 2px;
+    text-shadow: -2px 0 var(--neon-pink);
+    animation: glitch-shake 3s infinite linear alternate-reverse 1.5s;
+    clip: rect(44px, 450px, 56px, 0);
+}
+
+h1.glitch::after {
+    left: -2px;
+    text-shadow: 2px 0 var(--neon);
+    animation: glitch-shake 2s infinite linear alternate-reverse 1.5s;
+    clip: rect(44px, 450px, 56px, 0);
+}
+
+/* --- KEYFRAMES ANIMASI --- */
+
+/* 1. Animasi Masuk (Muncul Dramatis) */
+@keyframes hero-reveal {
+    0% {
+        opacity: 0;
+        transform: scale(0.8) translateY(20px);
+        /* Kecil & agak di bawah */
+        filter: blur(20px);
+        /* Sangat buram */
+        letter-spacing: 20px;
+        /* Huruf renggang */
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+        /* Ukuran normal */
+        filter: blur(0px);
+        /* Tajam */
+        letter-spacing: 5px;
+        /* Spasi normal */
+    }
+}
+
+/* 2. Animasi Glitch Santai (Looping) */
+@keyframes glitch-idle {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    95% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    96% {
+        opacity: 0.8;
+        transform: skewX(10deg);
+    }
+
+    /* Kedip miring dikit */
+    97% {
+        opacity: 1;
+        transform: skewX(0deg);
+    }
+
+    98% {
+        opacity: 1;
+        transform: scale(1.02);
+    }
+
+    /* Zoom dikit */
+    99% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* 3. Animasi Shake untuk warna RGB */
+@keyframes glitch-shake {
+    0% {
+        clip: rect(10px, 9999px, 30px, 0);
+    }
+
+    20% {
+        clip: rect(80px, 9999px, 100px, 0);
+    }
+
+    40% {
+        clip: rect(40px, 9999px, 60px, 0);
+    }
+
+    60% {
+        clip: rect(20px, 9999px, 10px, 0);
+    }
+
+    80% {
+        clip: rect(90px, 9999px, 50px, 0);
+    }
+
+    100% {
+        clip: rect(60px, 9999px, 80px, 0);
+    }
+}
+
+/* --- EFEK MENGETIK (FIX KURSOR HILANG) --- */
+.typing-effect {
+    display: inline-block;
+    max-width: fit-content;
+    margin: 15px auto 0 auto;
+
+    color: #aaa;
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-shadow:
+        0 0 10px rgba(0, 136, 255, 0.8),
+        0 0 20px rgba(0, 136, 255, 0.4);
+
+    /* 1. KUNCI AGAR KURSOR MUNCUL: Beri Border Kanan */
+    border-right: 3px solid var(--neon);
+
+    /* 2. KUNCI PENTING: Beri jarak kanan agar border tidak terpotong */
+    padding-right: 5px;
+
+    width: 0;
+
+    /* Animasi: Typing jalan sekali (forwards), Blink jalan terus (infinite) */
+    animation:
+        typing-loop 8s steps(50, end) infinite,
+        blink 0.75s step-end infinite;
+}
+
+/* --- KEYFRAMES BARU (Ngetik -> Diam Lama -> Reset) --- */
+@keyframes typing-loop {
+
+    /* 0% - 20%: Proses Mengetik (Cepat) */
+    0% {
+        width: 0;
+    }
+
+    20% {
+        width: 100%;
+    }
+
+    /* 20% - 80%: JEDA WAKTU (Teks Diam Terbaca) */
+    80% {
+        width: 100%;
+    }
+
+
+
+    /* 90% - 100%: Jeda Sebentar dalam keadaan kosong sebelum mulai lagi */
+    100% {
+        width: 0;
+    }
+}
+
+/* Animasi Lebar */
+@keyframes typing {
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 100%;
+    }
+}
+
+/* Animasi Kedip (Dibuat lebih tegas) */
+@keyframes blink {
+
+    0%,
+    100% {
+        border-color: var(--neon);
+    }
+
+    50% {
+        border-color: transparent;
+    }
+}
+
+.search-bar input {
+    margin-top: 30px;
+    width: 100%;
+    max-width: 500px;
+    padding: 15px 25px;
+    background: var(--glass);
+    border: 1px solid var(--neon-cyan);
+    border-radius: 30px;
+    color: white;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.1rem;
+    outline: none;
+    transition: 0.3s;
+}
+
+.search-bar input:focus {
+    box-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
+}
+
+/* GRID SYSTEM */
+.province-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+/* --- GRID ITEM (REVISI V2: WATERMARK NAMA PROVINSI) --- */
+.grid-item {
+    background: rgba(10, 20, 30, 0.7);
+    /* Background agak gelap kebiruan */
+    backdrop-filter: blur(8px);
+    /* Efek blur kaca */
+
+    border: 1px solid rgba(0, 136, 255, 0.2);
+    /* Border tipis halus */
+    border-radius: 12px;
+    /* Sedikit sudut membulat */
+
+    padding: 25px;
+    position: relative;
+    overflow: hidden;
+    /* Penting untuk menyembunyikan bagian teks watermark yang keluar */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    /* Transisi yang lebih lembut */
+
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+
+    text-decoration: none;
+    /* Pastikan link tidak ada garis bawah */
+    color: white;
+    /* Warna teks default */
+}
+
+/* --- EFEK HOVER (Kartu Bersinar) --- */
+.grid-item:hover {
+    transform: translateY(-8px) scale(1.02);
+    /* Lebih responsif */
+    border-color: var(--neon);
+    /* Border menyala biru */
+    background: rgba(0, 136, 255, 0.1);
+    /* Background lebih terang saat dihover */
+
+    box-shadow: 0 10px 25px rgba(0, 136, 255, 0.3),
+        /* Box shadow lebih kuat */
+        inset 0 0 15px rgba(0, 136, 255, 0.08);
+    /* Inner glow */
+}
+
+/* --- JUDUL PROVINSI --- */
+.grid-item h3 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.6rem;
+    color: white;
+    /* Default putih */
+    margin-bottom: 8px;
+    letter-spacing: 1.5px;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    transition: 0.3s;
+    position: relative;
+    /* Penting agar di atas watermark */
+    z-index: 2;
+}
+
+.grid-item:hover h3 {
+    color: var(--neon);
+    /* Judul menyala biru saat hover */
+    text-shadow: 0 0 10px var(--neon);
+}
+
+/* --- TEKS DESKRIPSI (Data: Ulee Balang) --- */
+.grid-item p {
+    font-size: 0.95rem;
+    color: #b0c4de;
+    /* Biru muda keabuan */
+    font-family: 'Rajdhani', sans-serif;
+    letter-spacing: 0.8px;
+    position: relative;
+    /* Penting agar di atas watermark */
+    z-index: 2;
+}
+
+/* --- WATERMARK NAMA PROVINSI (BESAR DAN SAMAR) --- */
+/* --- WATERMARK NAMA PROVINSI --- */
+.grid-item::before {
+    /* KUNCI: Mengambil teks dari atribut yang kita set di JS tadi */
+    content: attr(data-province-name);
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-20deg);
+    /* Miring dan tengah */
+
+    font-family: 'Orbitron', sans-serif;
+    font-size: 3rem;
+    /* Ukuran besar */
+    font-weight: 900;
+
+    color: rgba(0, 136, 255, 0.08);
+    /* Transparan banget */
+    white-space: nowrap;
+    /* Agar teks tidak turun baris */
+
+    pointer-events: none;
+    z-index: 0;
+    /* Di belakang teks utama */
+    transition: all 0.4s ease;
+}
+
+/* Efek saat dihover: Watermark sedikit membesar dan terang */
+.grid-item:hover::before {
+    color: rgba(0, 136, 255, 0.15);
+    transform: translate(-50%, -50%) rotate(-20deg) scale(1.1);
+}
+
+/* --- HOLOGRAM OVERLAY STYLES (Hidden by default) --- */
+#hologram-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: black;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+}
+
+#hologram-overlay.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.hidden {
+    display: none;
+}
+
+.back-btn {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    background: transparent;
+    border: 1px solid white;
+    color: white;
+    padding: 10px 20px;
+    font-family: 'Orbitron', sans-serif;
+    cursor: pointer;
+    transition: 0.3s;
+    z-index: 101;
+}
+
+.back-btn:hover {
+    background: white;
+    color: black;
+}
+
+/* CONTAINER 3D (Copy dari kode sebelumnya + perbaikan) */
+.container-3d {
+    perspective: 1000px;
+}
+
+.holo-card {
+    width: 350px;
+    height: 550px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--neon-cyan);
+    border-radius: 15px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.1s ease-out;
+    box-shadow: 0 0 50px rgba(0, 243, 255, 0.15);
+}
+
+.holo-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    overflow: hidden;
+    transform: translateZ(50px);
+}
+
+.character-img {
+    width: 130%;
+    height: auto;
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%) translateZ(30px);
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.8));
+}
+
+.card-info {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 30px 20px;
+    background: linear-gradient(to top, black, transparent);
+    transform: translateZ(60px);
+}
+
+.card-info h2 {
+    font-family: 'Orbitron';
+    color: var(--neon-cyan);
+    font-size: 2rem;
+}
+
+.stats {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.stat-box {
+    border: 1px solid #333;
+    padding: 5px 10px;
+    font-size: 0.8rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-box span {
+    font-size: 0.6rem;
+    color: #666;
+}
+
+.scan-line {
+    width: 100%;
+    height: 5px;
+    background: var(--neon-cyan);
+    opacity: 0.5;
+    position: absolute;
+    top: 0;
+    animation: scan 3s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes scan {
+    0% {
+        top: -10%;
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 0.8;
+    }
+
+    100% {
+        top: 110%;
+        opacity: 0;
+    }
+}
+
+/* ==============================================================
+   RESPONSIVE BREAKPOINTS (TABLET & MOBILE)
+   ============================================================== */
+
+/* --- 1. TABLET & LAPTOP KECIL (Max-width: 1024px) --- */
+@media (max-width: 1024px) {
+    #landing-page {
+        padding: 30px;
+        max-width: 95%;
+        /* Lebarkan container */
+    }
+
+    h1.glitch {
+        font-size: 3.5rem;
+        /* Kecilkan judul sedikit */
+    }
+
+    .province-grid {
+        gap: 15px;
+        /* Rapatkan jarak grid */
+    }
+}
+
+/* --- 2. MOBILE / HP (Max-width: 768px) --- */
+@media (max-width: 768px) {
+
+    /* A. HEADER & TYPOGRAPHY */
+    .hero-section {
+        margin-top: 30px;
+        margin-bottom: 30px;
+        padding: 0 10px;
+    }
+
+    h1.glitch {
+        font-size: 2.2rem;
+        /* Ukuran pas untuk HP */
+        letter-spacing: 2px;
+        white-space: normal;
+        /* Izinkan turun baris jika kepanjangan */
+        line-height: 1.2;
+        text-align: center;
+    }
+
+    /* Penyesuaian klip glitch agar tetap terlihat di font kecil */
+    h1.glitch::before,
+    h1.glitch::after {
+        display: none;
+        /* OPSI: Matikan efek glitch berat di HP agar teks lebih terbaca & performa ringan */
+    }
+
+    .typing-effect {
+        font-size: 0.9rem;
+        /* Kecilkan teks mengetik */
+        margin-top: 10px;
+        max-width: 90%;
+        /* Agar tidak tembus layar */
+        white-space: nowrap;
+        /* Tetap satu baris untuk efek ngetik */
+    }
+
+    /* B. SEARCH BAR */
+    .search-bar input {
+        width: 90%;
+        /* Lebar hampir penuh */
+        padding: 12px 20px;
+        font-size: 1rem;
+    }
+
+    /* C. GRID SYSTEM DI HP */
+    .province-grid {
+        grid-template-columns: 1fr;
+        /* 1 Kolom ke bawah */
+        gap: 20px;
+    }
+
+    .grid-item {
+        padding: 20px;
+        min-height: 120px;
+        /* Tinggi minimal kartu */
+    }
+
+    .grid-item h3 {
+        font-size: 1.4rem;
+    }
+
+    /* D. HOLOGRAM OVERLAY (MODE HP) */
+    #hologram-overlay {
+        align-items: flex-start;
+        /* Agar bisa discroll jika kartu tinggi */
+        overflow-y: auto;
+        /* Izinkan scroll di overlay */
+        padding: 20px 0;
+    }
+
+    .holo-card {
+        /* UBAH DARI PIXEL KE PERSEN */
+        width: 85vw;
+        /* 85% Lebar Layar */
+        height: 60vh;
+        /* 60% Tinggi Layar */
+        max-width: 350px;
+        /* Jangan lebih besar dari 350px */
+        max-height: 500px;
+
+        margin-top: 60px;
+        /* Beri jarak dari tombol kembali */
+        margin-bottom: 20px;
+        transform: none;
+        /* Matikan rotasi 3D berat di HP agar ringan */
+    }
+
+    /* Posisi Tombol Kembali di HP */
+    .back-btn {
+        top: 15px;
+        left: 50%;
+        transform: translateX(-50%);
+        /* Tengah atas */
+        width: 90%;
+        text-align: center;
+        background: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(5px);
+    }
+
+    /* Gambar Karakter di dalam Kartu */
+    .character-img {
+        width: 100%;
+        /* Sesuaikan lebar gambar */
+        top: 50%;
+    }
+
+    .card-info h2 {
+        font-size: 1.5rem;
+    }
+
+    .stats {
+        justify-content: center;
+    }
+
+    /* --- MASUKKAN INI DI DALAM @media (max-width: 768px) --- */
+
+    .typing-effect {
+        /* 1. Izinkan teks turun baris agar tidak terpotong */
+        white-space: normal;
+
+        /* 2. Pastikan lebar penuh agar teks bisa menyebar */
+        width: 100%;
+        max-width: 90%;
+        /* Beri jarak sedikit dari pinggir layar */
+        height: auto;
+
+        /* 3. MATIKAN animasi mengetik (karena typing effect rusak jika 2 baris) */
+        animation: textFadeIn 2s ease-out forwards;
+        /* Ganti jadi animasi muncul halus */
+
+        /* 4. Hilangkan kursor kedip (border kanan) karena sudah jadi paragraf */
+        border-right: none;
+
+        /* 5. Atur ulang ukuran font dan spasi */
+        font-size: 1rem;
+        line-height: 1.5;
+        text-align: center;
+        margin: 10px auto;
+        padding-right: 0;
+        /* Reset padding */
+    }
+
+    /* --- BUAT KEYFRAMES BARU KHUSUS HP --- */
+    /* Taruh ini DI LUAR media query atau di paling bawah file CSS juga boleh */
+    @keyframes textFadeIn {
+        0% {
+            opacity: 0;
+            transform: translateY(20px);
+            /* Muncul dari bawah sedikit */
+            filter: blur(5px);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+            filter: blur(0);
+        }
+    }
+}
+
+/* --- 3. HP KECIL (Max-width: 380px) --- */
+@media (max-width: 380px) {
+    h1.glitch {
+        font-size: 1.8rem;
+        /* Lebih kecil lagi */
+    }
+
+    .typing-effect {
+        font-size: 0.75rem;
+    }
+
+    .holo-card {
+        height: 55vh;
+    }
+}

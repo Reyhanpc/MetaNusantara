@@ -1,0 +1,682 @@
+/* ==============================================================
+   STYLE KHUSUS HALAMAN DETAIL (FINAL FIX)
+   Lokasi File: halaman-detail/assets/style.css
+   ============================================================== */
+
+:root {
+    --neon: #0088ff;
+    --bg: #020610;
+    --dark-glass: rgba(0, 136, 255, 0.05); /* Kaca ada tint birunya */
+    --border-color: #003366; /* Border lebih biru */
+}
+
+/* --- RESET & FONT --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: var(--bg);
+    color: white;
+    font-family: 'Rajdhani', sans-serif;
+    min-height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+/* --- BACKGROUND EFEK --- */
+body::before {
+    content: '';
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    pointer-events: none;
+    z-index: -2;
+
+    /* Grid Pattern */
+    background-image:
+        linear-gradient(rgba(0, 243, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 243, 255, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+
+    /* ANIMASI GERAK (Perspective Flyover) */
+    animation: scrollGrid 20s linear infinite;
+    transform: perspective(500px) rotateX(60deg);
+    /* Efek miring 3D */
+}
+
+@keyframes scrollGrid {
+    0% {
+        transform: perspective(500px) rotateX(60deg) translateY(0);
+    }
+
+    100% {
+        transform: perspective(500px) rotateX(60deg) translateY(50px);
+    }
+}
+
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+    background: radial-gradient(circle at center, transparent 40%, black 100%);
+}
+
+/* --- PETA INDONESIA (MODE BIRU & BERDENYUT) --- */
+.bg-map {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    
+    z-index: -1;
+    pointer-events: none;
+    
+    background-image: url('images/map.png'); 
+    background-repeat: no-repeat;
+    background-position: center;
+    
+    /* Ukuran Peta */
+    background-size: 140%; 
+    
+    /* Mode campuran agar menyatu dengan background gelap */
+    mix-blend-mode: lighten; 
+
+    /* Jalankan Animasi Denyut Biru */
+    animation: mapPulseBlue 4s ease-in-out infinite alternate;
+}
+
+/* --- ANIMASI DENYUT BIRU (STANDBY LIGHT) --- */
+@keyframes mapPulseBlue {
+    /* Keadaan Redup */
+    0% { 
+        opacity: 0.1; /* Sangat tipis */
+        filter: 
+            grayscale(100%)        /* Pastikan hitam putih dulu */
+            brightness(1)          /* Kecerahan normal */
+            drop-shadow(0 0 2px #004488); /* Glow biru tua kecil */
+    }
+    
+    /* Keadaan Terang (Menyala) */
+    100% { 
+        opacity: 0.4; /* Lebih terlihat */
+        filter: 
+            grayscale(100%) 
+            brightness(1.5)        /* Garis peta memutih */
+            drop-shadow(0 0 15px #0088ff); /* Glow BIRU ELEKTRIK menyebar */
+    }
+}
+
+/* --- BONUS: EFEK RADAR SCANNER (Garis hijau jalan dari atas ke bawah) --- */
+.bg-map::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5%;
+    /* Tinggi garis scanner */
+    background: linear-gradient(to bottom, transparent, var(--neon), transparent);
+    opacity: 0.3;
+    filter: blur(5px);
+    animation: radarScan 8s linear infinite;
+}
+
+@keyframes radarScan {
+    0% {
+        top: -10%;
+    }
+
+    100% {
+        top: 110%;
+    }
+}
+
+/* --- ANIMASI PARTIKEL --- */
+.animated-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.particle-star {
+    position: absolute;
+    background: radial-gradient(circle, var(--neon) 1px, transparent 2px);
+    opacity: 0.7;
+    animation: moveStar 15s linear infinite;
+}
+
+/* Posisi Partikel */
+.particle-star:nth-child(1) {
+    width: 3px;
+    height: 3px;
+    top: 10%;
+    left: 5%;
+    animation-delay: 0s;
+}
+
+.particle-star:nth-child(2) {
+    width: 2px;
+    height: 2px;
+    top: 20%;
+    left: 20%;
+    animation-delay: 2s;
+}
+
+.particle-star:nth-child(3) {
+    width: 4px;
+    height: 4px;
+    top: 30%;
+    left: 40%;
+    animation-delay: 4s;
+}
+
+.particle-star:nth-child(4) {
+    width: 2px;
+    height: 2px;
+    top: 40%;
+    left: 60%;
+    animation-delay: 6s;
+}
+
+.particle-star:nth-child(5) {
+    width: 3px;
+    height: 3px;
+    top: 50%;
+    left: 80%;
+    animation-delay: 8s;
+}
+
+.particle-star:nth-child(6) {
+    width: 2px;
+    height: 2px;
+    top: 60%;
+    left: 10%;
+    animation-delay: 10s;
+}
+
+.particle-star:nth-child(7) {
+    width: 3px;
+    height: 3px;
+    top: 70%;
+    left: 30%;
+    animation-delay: 12s;
+}
+
+.particle-star:nth-child(8) {
+    width: 4px;
+    height: 4px;
+    top: 80%;
+    left: 50%;
+    animation-delay: 14s;
+}
+
+@keyframes moveStar {
+    0% {
+        transform: translateY(0) translateX(0) scale(1);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(-100vh) translateX(10vw) scale(0.5);
+        opacity: 0;
+    }
+}
+
+/* --- NAVIGASI & LAYOUT --- */
+.back-btn {
+    position: absolute;
+    top: 30px;
+    left: 40px;
+    color: var(--neon);
+    text-decoration: none;
+    border: 1px solid var(--neon);
+    padding: 10px 25px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.8rem;
+    transition: 0.3s;
+    z-index: 100;
+    clip-path: polygon(10px 0, 100% 0, 100% 100%, 0 100%, 0 10px);
+}
+
+.back-btn:hover {
+    background: var(--neon);
+    color: black;
+    box-shadow: 0 0 15px var(--neon);
+}
+
+.layout {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 10%;
+    gap: 200px;
+    width: 100%;
+    height: 100vh;
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 20;
+}
+
+.menu-btn {
+    background: var(--dark-glass);
+    border: 1px solid var(--border-color);
+    border-left: 3px solid var(--border-color);
+    color: #bbb;
+
+    /* --- 3. MEMPERBESAR TOMBOL --- */
+    width: 260px;
+    /* Tadi 200px -> Sekarang lebih lebar */
+    padding: 18px 30px;
+    /* Tadi 12px -> Sekarang lebih tebal/tinggi */
+    font-size: 1.1rem;
+    /* Teks lebih besar */
+    /* ----------------------------- */
+
+    font-family: 'Orbitron', sans-serif;
+    cursor: pointer;
+    text-align: left;
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    clip-path: polygon(15px 0, 100% 0, 100% 100%, 0 100%, 0 15px);
+    /* Siku potongan lebih besar */
+}
+
+/* Perbesar juga ikonnya */
+.menu-btn .icon {
+    font-size: 1.4rem;
+    margin-right: 5px;
+}
+
+/* Update Hover agar animasinya pas dengan ukuran baru */
+.menu-btn:hover {
+    border-color: var(--neon);
+    color: white;
+    padding-left: 45px;
+    /* Gesernya lebih jauh dikit */
+    background: rgba(0, 243, 255, 0.1);
+}
+
+.menu-btn.active {
+    border-color: var(--neon);
+    border-left: 4px solid var(--neon);
+    color: var(--neon);
+    background: rgba(0, 243, 255, 0.15);
+    box-shadow: 0 0 20px rgba(0, 243, 255, 0.15);
+}
+
+/* --- 3D HOLOGRAM CARD --- */
+.holo-container {
+    perspective: 1000px;
+}
+
+.holo-card {
+    width: 320px;
+    height: 500px;
+    background: rgba(0, 10, 20, 0.6);
+    border-radius: 15px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.1s ease-out;
+
+    /* --- UBAH BAGIAN BORDER INI --- */
+    /* Border lama terlalu tipis dan redup */
+    /* border: 1px solid rgba(0, 243, 255, 0.3); */
+
+    /* Border BARU: Lebih tebal (2px) dan warnanya cyan terang padat */
+    /* Kita gunakan var(--neon-bright) jika ada, jika tidak pakai kode warna langsung #00f3ff */
+    border: 2px solid var(--neon-bright, #00f3ff);
+    /* ----------------------------- */
+
+    /* ANIMASI GLOW BERNAFAS (Tetap gunakan animasi ini) */
+    animation: holoPulse 3s infinite alternate;
+}
+
+/* 2. MODIFIKASI ANIMASI GLOW (@keyframes holoPulse) */
+/* Kita ganti total keyframes ini dengan lapisan bayangan yang lebih banyak */
+@keyframes holoPulse {
+    0% {
+        /* Keadaan "Redup" (Tetap menyala neon, tapi intensitas rendah) */
+        border-color: var(--neon); /* Warna border sedikit meredup ke biru tua */
+        box-shadow:
+            0 0 5px  var(--neon),                 /* Layer 1: Glow dekat */
+            0 0 15px rgba(0, 136, 255, 0.6),      /* Layer 2: Glow sedang */
+            0 0 30px rgba(0, 136, 255, 0.3),      /* Layer 3: Ambiance jauh */
+            inset 0 0 15px rgba(0, 243, 255, 0.2); /* Glow ke dalam */
+    }
+
+    100% {
+        /* Keadaan "Terang Maksimal" (Efek Neon menyala penuh) */
+        border-color: var(--neon-bright, #00f3ff); /* Warna border menjadi cyan terang */
+        box-shadow:
+            /* Trik Neon: Layer pertama warna putih/sangat terang untuk kesan "panas" di inti */
+            0 0 5px  #fff,
+            /* Layer berikutnya warna cyan terang */
+            0 0 10px var(--neon-bright, #00f3ff),
+            /* Layer berikutnya warna biru utama untuk penyebaran cahaya */
+            0 0 30px var(--neon),
+            /* Layer terakhir untuk ambiance yang sangat luas */
+            0 0 60px rgba(0, 136, 255, 0.8),
+            /* Glow ke dalam yang kuat */
+            inset 0 0 30px rgba(0, 243, 255, 0.5);
+    }
+}
+.holo-inner {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    border-radius: 15px;
+    overflow: hidden;
+    transform: translateZ(40px);
+
+    /* BACKGROUND CANGGIH: Gabungan Gradient + Grid Pattern */
+    background:
+        /* Vignette (Gelap di pinggir) */
+        radial-gradient(circle at center, transparent 50%, rgba(0, 0, 0, 0.8) 100%),
+        /* Garis Grid Horizontal */
+        linear-gradient(rgba(0, 243, 255, 0.1) 1px, transparent 1px),
+        /* Garis Grid Vertikal */
+        linear-gradient(90deg, rgba(0, 243, 255, 0.1) 1px, transparent 1px);
+
+    /* Ukuran kotak-kotak gridnya */
+    background-size: 100% 100%, 20px 20px, 20px 20px;
+}
+
+/* ================================================== 
+   LOGIKA GAMBAR DINAMIS (FULL vs SENJATA)
+   ================================================== */
+
+/* 1. BASE STYLE (Animasi Transisi) */
+/* --- LOGIKA GAMBAR DINAMIS (FULL vs SENJATA) --- */
+
+/* 1. BASE STYLE (Animasi Transisi Dasar) */
+.main-img {
+    position: absolute;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    /* Efek membal halus */
+    z-index: 0;
+}
+
+/* 2. MODE FULL (Untuk Pakaian, Rumah, Makanan) */
+/* Gambar ditarik memenuhi kartu (Wallpaper style) */
+/* 2. MODE FULL (Untuk Pakaian, Rumah, Makanan) */
+/* Gambar ditarik memenuhi kartu (Wallpaper style) */
+/* --- 2. MODE FULL (Pakaian, Rumah, Makanan) - UPDATE MELAYANG --- */
+.main-img.mode-full {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    
+    top: 0;
+    left: 0;
+    border-radius: 15px;
+
+    /* ANIMASI MELAYANG (Full Image) */
+    animation: floatFull 4s ease-in-out infinite;
+}
+
+/* Keyframes Melayang untuk Gambar Full */
+@keyframes floatFull {
+    0%, 100% { 
+        /* Scale 1.1 (110%) supaya saat gerak tidak ada celah */
+        transform: scale(1.1) translateY(0px); 
+        filter: brightness(0.6); 
+    }
+    50% { 
+        /* Gerak Naik sedikit */
+        transform: scale(1.1) translateY(-10px); 
+        filter: brightness(0.7); /* Sedikit lebih terang saat naik */
+    }
+}
+
+/* 3. MODE WEAPON (Khusus Senjata) */
+/* Gambar mengecil dan melayang di tengah */
+.main-img.mode-weapon {
+    width: 110%;
+    height: 70%;
+    object-fit: contain;
+
+    top: 50%;
+    left: 50%;
+
+    /* Posisi awal */
+    transform: translate(-50%, -50%) translateZ(50px) scale(1.1);
+    filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.9));
+    border-radius: 0;
+
+    /* ANIMASI MELAYANG */
+    animation: floatWeapon 3s ease-in-out infinite;
+}
+
+@keyframes floatWeapon {
+
+    0%,
+    100% {
+        transform: translate(-50%, -50%) translateZ(50px) scale(1.1) translateY(0px);
+    }
+
+    50% {
+        transform: translate(-50%, -50%) translateZ(50px) scale(1.1) translateY(-10px);
+    }
+
+    /* Bergerak naik 10px */
+}
+
+/* --- INFO BOX --- */
+.info-box {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 20px;
+    /* Gradien agar teks terbaca di atas gambar full */
+    background: linear-gradient(to top, rgba(0, 0, 0, 1) 20%, rgba(0, 0, 0, 0.6) 60%, transparent 100%);
+    transform: translateZ(60px);
+    text-align: center;
+    z-index: 2;
+}
+
+.info-box h2 {
+    color: var(--neon);
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    margin-bottom: 5px;
+}
+
+.info-box h1 {
+    font-family: 'Orbitron';
+    font-size: 1.8rem;
+    color: white;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    margin-bottom: 5px;
+}
+
+.info-box p {
+    font-size: 0.8rem;
+    color: #888;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.scanline {
+    width: 100%;
+    height: 2px;
+    background: var(--neon);
+    opacity: 0.5;
+    position: absolute;
+    top: 0;
+    animation: scan 3s ease-in-out infinite;
+    box-shadow: 0 0 10px var(--neon);
+}
+
+@keyframes scan {
+    0% {
+        top: -10%;
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 0.8;
+    }
+
+    100% {
+        top: 110%;
+        opacity: 0;
+    }
+}
+
+/* ==============================================================
+   RESPONSIVE DESIGN: SCI-FI HUD LAYOUT (MOBILE & TABLET)
+   ============================================================== */
+
+@media (max-width: 1024px) {
+    /* --- 1. PERBAIKAN GLOBAL --- */
+    body {
+        overflow-y: auto; /* Izinkan scroll vertikal */
+        overflow-x: hidden; /* Cegah scroll samping */
+        height: auto;
+        min-height: 100vh;
+        display: block; /* Reset flex body */
+        padding-bottom: 50px; /* Ruang napas di paling bawah */
+    }
+
+    /* --- 2. LAYOUT UTAMA (VERTIKAL) --- */
+    .layout {
+        flex-direction: column; /* Susun ke bawah */
+        align-items: center;
+        justify-content: flex-start;
+        padding: 0;
+        gap: 30px;
+        width: 100%;
+        height: auto;
+        margin-top: 80px; /* Jarak dari atas agar tidak nabrak tombol kembali */
+    }
+
+    /* --- 3. TOMBOL KEMBALI (POJOK KIRI ATAS) --- */
+    .back-btn {
+        top: 20px;
+        left: 5%;
+        width: 90%; /* Memanjang penuh di atas */
+        text-align: center;
+        background: rgba(0, 6, 16, 0.9);
+        backdrop-filter: blur(5px);
+        z-index: 999; /* Pastikan selalu di atas */
+        border-bottom: 2px solid var(--neon); /* Garis bawah neon */
+        clip-path: polygon(10px 0, 100% 0, 100% 100%, 95% 100%, 0 100%); /* Variasi bentuk */
+    }
+
+    /* --- 4. KARTU HOLOGRAM (LAYAR MONITOR UTAMA) --- */
+    .holo-card {
+        order: 1; /* Urutan pertama */
+        width: 85vw; /* Lebar 85% layar */
+        max-width: 380px; /* Batas maksimal agar tidak raksasa di Tablet */
+        height: 55vh; /* Tinggi dinamis mengikuti layar */
+        min-height: 400px; /* Tinggi minimal */
+        
+        /* Posisi tengah */
+        margin: 0 auto; 
+        
+        /* Sedikit efek melayang */
+        transform: translateZ(0); 
+        box-shadow: 0 20px 50px rgba(0,0,0,0.5); 
+    }
+
+    /* Penyesuaian Gambar Senjata di Mobile agar pas */
+    .main-img.mode-weapon {
+        width: 80%;
+        height: 50%;
+    }
+
+    /* --- 5. MENU SIDEBAR (JADI CONTROL PANEL DI BAWAH) --- */
+    .sidebar {
+        order: 2; /* Urutan kedua (di bawah kartu) */
+        width: 90%; /* Lebar panel */
+        max-width: 400px;
+        
+        /* Ubah jadi GRID 2 Kolom (Kotak-kotak) */
+        display: grid;
+        grid-template-columns: 1fr 1fr; /* 2 Kolom sama besar */
+        gap: 15px; /* Jarak antar tombol */
+        
+        padding: 10px;
+        background: rgba(0, 20, 40, 0.5); /* Background panel tipis */
+        border: 1px solid rgba(0, 243, 255, 0.2);
+        border-radius: 15px;
+    }
+
+    /* --- 6. GAYA TOMBOL MENU (MOBILE) --- */
+    .menu-btn {
+        width: 100%; /* Penuhi kotak grid */
+        height: 70px; /* Tinggi tombol nyaman untuk jempol */
+        padding: 0;
+        
+        /* Teks & Ikon di tengah */
+        flex-direction: column; 
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        
+        font-size: 0.9rem;
+        border-left: 1px solid var(--border-color); /* Reset border kiri tebal desktop */
+        border-bottom: 3px solid var(--border-color); /* Pindah border tebal ke bawah */
+        
+        clip-path: none; /* Hapus potongan miring desktop agar rapi di grid */
+        border-radius: 8px;
+        background: rgba(0, 0, 0, 0.6);
+    }
+
+    .menu-btn .icon {
+        font-size: 1.2rem;
+        margin-right: 0;
+        margin-bottom: 5px; /* Jarak ikon ke teks */
+    }
+
+    /* Efek Aktif & Hover di Mobile */
+    .menu-btn:hover, 
+    .menu-btn.active {
+        padding-left: 0; /* Matikan geser samping */
+        transform: translateY(-2px); /* Efek tekan tombol */
+        background: rgba(0, 243, 255, 0.15);
+        border-color: var(--neon);
+        border-bottom: 3px solid var(--neon);
+        box-shadow: 0 0 15px rgba(0, 243, 255, 0.2);
+    }
+}
+
+/* --- UKURAN EXTRA KECIL (HP SEPERTI IPHONE SE / GALAXY MINI) --- */
+@media (max-width: 380px) {
+    .holo-card {
+        height: 45vh; /* Kartu lebih pendek */
+    }
+    .sidebar {
+        grid-template-columns: 1fr; /* Tombol jadi 1 kolom ke bawah jika layar sangat sempit */
+    }
+    .menu-btn {
+        flex-direction: row; /* Kembali memanjang ke samping */
+        height: 50px;
+    }
+}
