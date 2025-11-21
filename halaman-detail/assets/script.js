@@ -14,7 +14,7 @@ const provinces = [
         data: {
             attire: { name: "Ulos", img: "./assets/images/ulos.png" },
             house: { name: "Rumah Bolon", img: "https://i.pinimg.com/1200x/21/d8/0a/21d80a7d981494e743887fd8a9e085b3.jpg" },
-            weapon: { name: "Piso Gaja Dompak", img: "./assets/images/Piso Gaja Dompak.png" },
+            weapon: { name: "Piso Gaja Dompak", img: "./assets/images/PisoGajaDompak.png" },
            food: { name: "Bika Ambon", img: "https://i.pinimg.com/736x/30/12/69/301269984a90df30d7f25795ade003e0.jpg" },
         }
     },
