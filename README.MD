@@ -25,7 +25,7 @@
     * *Breathing Map* (Peta Indonesia berdenyut).
     * *Particle Stars* (Partikel bintang bergerak).
 
-### 2. 🖼️ Kartu Hologram Interaktif (3D Tilt)
+### 2. 🖼️ Kartu Hologram Interaktif (2D Tilt)
 * Menggunakan JavaScript untuk mendeteksi posisi mouse.
 * Kartu akan miring (*tilt*) mengikuti arah kursor, menciptakan ilusi kedalaman 3D yang realistis.
 * Efek cahaya neon (*glow*) yang dinamis.
@@ -33,7 +33,7 @@
 ### 3. 🧠 Adaptive UI Logic (Smart Content)
 Sistem cerdas yang menyesuaikan tampilan gambar berdasarkan kategori:
 * **Mode Full:** Untuk Pakaian/Rumah/Makanan, gambar ditampilkan memenuhi kartu (*immersive wallpaper*).
-* **Mode Weapon:** Khusus Senjata, gambar ditampilkan melayang (*floating*) di tengah dengan efek levitasi 3D agar detail benda terlihat utuh.
+* **Mode Weapon:** Khusus Senjata, gambar ditampilkan melayang (*floating*) di tengah dengan efek levitasi 2D agar detail benda terlihat utuh.
 
 ### 4. ⚡ Performa & Struktur
 * **Single Page Feel:** Transisi antar halaman yang halus.
@@ -58,6 +58,6 @@ JATIMFEST/
 ├── halaman-detail/            # HOLOGRAM PAGE
     ├── index.html
     └── assets/
-        ├── style.css          # Style khusus 3D card & animasi
+        ├── style.css          # Style khusus 2D card & animasi
         ├── script.js          # Logika render data & kategori
         └── images/            # Aset gambar (Map, dll)
